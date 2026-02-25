@@ -1,0 +1,22 @@
+# ignore all
+/*
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+/[Aa]ssets/[Tt]hird[Pp]arty/*
+/[Aa]ssets/[Tt]hird [Pp]arty/*
+/[Aa]ssets/[Pp]lugins/*
+/[Aa]ssets/[Pp]lugin[Yy]our[Gg]ames/[Ee]ditor/*
+*.blend1
+*.blend1.meta
+
+# but not this
+!README.md
+!LICENSE
+!.gitignore
+!.gitattributes
+![Pp]rojectSettings
+![Pp]ackages
+![Aa]ssets
+![Ss]ource[Gg]enerators
+![Aa]ssets/[Pp]lugins/[Ss]ource[Gg]enerators
