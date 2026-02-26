@@ -57,5 +57,8 @@ namespace Core.Utils {
 			set { }
 			#endif
 		}
+		public static void Draw(string selectedSelected) {
+			throw new System.NotImplementedException();
+		}
 	}
 }

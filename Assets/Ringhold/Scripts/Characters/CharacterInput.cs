@@ -1,6 +1,7 @@
 using System;
 using Ringhold.Inputs;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Ringhold.Characters {
 	public class CharacterInput: MonoBehaviour {
@@ -8,6 +9,7 @@ namespace Ringhold.Characters {
 		private DefaultActions _actions;
 
 		public Vector2 Move => GetRelatedMove();
+		public event Action Interact;
 
 		private void Awake() {
 			_actions = new DefaultActions();
@@ -34,11 +36,14 @@ namespace Ringhold.Characters {
 			return new Vector2(result.x, result.z);
 		}
 		
+		private void OnInteractPerformed(InputAction.CallbackContext context) => Interact?.Invoke();
 		private void OnEnable() {
 			_actions.Player.Enable();
+			_actions.Player.Interact.performed += OnInteractPerformed;
 		}
 		private void OnDisable() {
 			_actions.Player.Disable();
+			_actions.Player.Interact.performed -= OnInteractPerformed;
 		}
 	}
 }
