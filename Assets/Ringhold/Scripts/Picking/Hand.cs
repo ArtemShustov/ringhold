@@ -25,14 +25,15 @@ namespace Ringhold.Picking {
 			itemTransform.localRotation = Quaternion.identity;
 		}
 		
-		public void Drop() {
+		public IPickupable Drop() {
 			if (Current == null) {
-				return;
+				return null;
 			}
 			var item = Current;
 			Current = null;
 			item.OnDrop();
 			DropVisual(item);
+			return item;
 		}
 		private void DropVisual(IPickupable item) {
 			if (item is not MonoBehaviour mono) {
@@ -41,6 +42,15 @@ namespace Ringhold.Picking {
 			var itemTransform = mono.transform;
 			itemTransform.SetParent(null);
 			itemTransform.transform.position = GetGroundPosition();
+		}
+
+		public IPickupable Clear() {
+			if (Current == null) {
+				return null;
+			}
+			var item = Current;
+			Current = null;
+			return item;
 		}
 
 		private Vector3 GetGroundPosition() {
