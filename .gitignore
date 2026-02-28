@@ -10,6 +10,7 @@
 *.blend1
 *.blend1.meta
 /[Pp]ackages/*
+/[Aa]ssets/KinematicCharacterController/*
 
 # but not this
 !README.md

@@ -20,20 +20,28 @@ namespace Ringhold.Characters {
 			if (_actions == null) {
 				return Vector2.zero;
 			}
-			
+    
 			var input = _actions.Player.Move.ReadValue<Vector2>();
+			if (input.sqrMagnitude < 0.0001f) {
+				return Vector2.zero;
+			}
 
-			var directionAngle = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg;
-			if (directionAngle < 0) {
-				directionAngle += 360;
+			var up = transform.up;
+			var camForward = Vector3.ProjectOnPlane(_camera.transform.forward, up);
+			var camRight = Vector3.ProjectOnPlane(_camera.transform.right, up);
+
+			if (camForward.sqrMagnitude < 0.0001f) {
+				camForward = Vector3.ProjectOnPlane(_camera.transform.up, up);
 			}
-			directionAngle += _camera.transform.eulerAngles.y;
-			if (directionAngle > 360) {
-				directionAngle -= 360;
-			}
-			var forward = Quaternion.Euler(0, directionAngle, 0) * Vector3.forward;
-			var result = forward * Mathf.Clamp01(input.magnitude);
-			return new Vector2(result.x, result.z);
+
+			camForward.Normalize();
+			camRight.Normalize();
+
+			var worldMove = camForward * input.y + camRight * input.x;
+			worldMove = worldMove.normalized * Mathf.Clamp01(input.magnitude);
+
+			var localForward = transform.InverseTransformDirection(worldMove);
+			return new Vector2(localForward.x, localForward.z);
 		}
 		
 		private void OnInteractPerformed(InputAction.CallbackContext context) => Interact?.Invoke();

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Ringhold.Scripts.World {
+namespace Ringhold.World {
 	public class TestRingObject: MonoBehaviour {
 		[SerializeField] private Ring _ring;
 

@@ -3,7 +3,7 @@ using System.Linq;
 using Pathfinding;
 using UnityEngine;
 
-namespace Ringhold.Scripts.World {
+namespace Ringhold.World {
 	public class RingGenerator : MonoBehaviour {
 		[Header("Settings")]
 		[SerializeField] private int _partCount = 16;
@@ -11,10 +11,6 @@ namespace Ringhold.Scripts.World {
 		[SerializeField] private float _partWidth = 10f;
 		[SerializeField] private Ring _ring;
 		[SerializeField] private AstarPath _astar;
-		[Header("Nav Graph")]
-		[SerializeField] private float _agentHeight = 2f;
-		[SerializeField] private float _agentRadius = 0.5f;
-		[SerializeField] private float _maxSlope = 30f;
 		[Header("Prefabs")]
 		[SerializeField] private GameObject _partPrefab;
 

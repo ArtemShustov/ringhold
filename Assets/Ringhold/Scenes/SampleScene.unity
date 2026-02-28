@@ -490,12 +490,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 4, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1375596338}
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -1618,7 +1618,9 @@ GameObject:
   - component: {fileID: 1375596342}
   - component: {fileID: 1375596341}
   - component: {fileID: 1375596340}
-  - component: {fileID: 1375596339}
+  - component: {fileID: 1375596346}
+  - component: {fileID: 1375596344}
+  - component: {fileID: 1375596345}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1635,7 +1637,7 @@ Transform:
   m_GameObject: {fileID: 1375596337}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1643,33 +1645,9 @@ Transform:
   - {fileID: 599526253}
   - {fileID: 714479676}
   - {fileID: 644603301}
+  - {fileID: 330585546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &1375596339
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375596337}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1.5
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.2
-  m_SkinWidth: 0.0001
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!114 &1375596340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1710,10 +1688,90 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Characters.Character
   <Stats>k__BackingField:
     <MoveSpeed>k__BackingField: 5
-  <Controller>k__BackingField: {fileID: 1375596339}
+  <Controller>k__BackingField: {fileID: 1375596346}
   <View>k__BackingField: {fileID: 1186693960}
   <StateMachine>k__BackingField: {fileID: 1375596341}
   <Input>k__BackingField: {fileID: 1375596340}
+--- !u!136 &1375596344
+CapsuleCollider:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375596337}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.75, z: 0}
+--- !u!114 &1375596345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375596337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1bc5515e3ab954e80599c538834774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KinematicCharacterController.KinematicCharacterMotor
+  Capsule: {fileID: 1375596344}
+  CapsuleRadius: 0.5
+  CapsuleHeight: 1.5
+  CapsuleYOffset: 0.75
+  CapsulePhysicsMaterial: {fileID: 0}
+  GroundDetectionExtraDistance: 0
+  MaxStableSlopeAngle: 60
+  StableGroundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  DiscreteCollisionEvents: 0
+  StepHandling: 1
+  MaxStepHeight: 0.5
+  AllowSteppingWithoutStableGrounding: 0
+  MinRequiredStepDepth: 0
+  LedgeAndDenivelationHandling: 1
+  MaxStableDistanceFromLedge: 0
+  MaxVelocityForLedgeSnap: 0
+  MaxStableDenivelationAngle: 180
+  InteractiveRigidbodyHandling: 1
+  RigidbodyInteractionType: 0
+  SimulatedCharacterMass: 1
+  PreserveAttachedRigidbodyMomentum: 1
+  HasPlanarConstraint: 0
+  PlanarConstraintAxis: {x: 0, y: 0, z: 1}
+  MaxMovementIterations: 5
+  MaxDecollisionIterations: 1
+  CheckMovementInitialOverlaps: 1
+  KillVelocityWhenExceedMaxMovementIterations: 1
+  KillRemainingMovementWhenExceedMaxMovementIterations: 1
+--- !u!114 &1375596346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375596337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb95957f51b45a39318544c32f47ab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Characters.CharacterController
+  _motor: {fileID: 1375596345}
+  _normalSmoothSpeed: 10
+  _normalSnapThreshold: 0.1
 --- !u!1 &1558923755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,7 +1923,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1818757976
+--- !u!1 &1851803505
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1873,41 +1931,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1818757978}
-  - component: {fileID: 1818757977}
+  - component: {fileID: 1851803507}
+  - component: {fileID: 1851803506}
   m_Layer: 0
-  m_Name: RingObject
+  m_Name: World
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1818757977
+--- !u!114 &1851803506
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818757976}
+  m_GameObject: {fileID: 1851803505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4ec0e311cf140a5b3cc7f09b372567e, type: 3}
+  m_Script: {fileID: 11500000, guid: 838e016cfcfa4640a34099acd3c275cb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Scripts.World.RingObject
+  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Scripts.World.World
   _ring: {fileID: 2140532051}
---- !u!4 &1818757978
+--- !u!4 &1851803507
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818757976}
+  m_GameObject: {fileID: 1851803505}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2140532049}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2007330639
@@ -2020,14 +2079,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79229bc50bb34336b6df33e12eda058a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Scripts.World.RingGenerator
-  _partCount: 6
+  _partCount: 32
   _partLength: 20
   _partWidth: 10
   _ring: {fileID: 2140532051}
   _astar: {fileID: 2140532050}
-  _agentHeight: 2
-  _agentRadius: 0.5
-  _maxSlope: 30
   _partPrefab: {fileID: 2803130949083219368, guid: af0d3834a735730429ca1498e85054b5, type: 3}
 --- !u!4 &2140532049
 Transform:
@@ -2037,12 +2093,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140532047}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 102, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1851803507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2140532050
 MonoBehaviour:
@@ -2237,17 +2293,15 @@ MeshFilter:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 590408817}
   - {fileID: 128540652}
   - {fileID: 2007330642}
   - {fileID: 275175316}
-  - {fileID: 2140532049}
+  - {fileID: 1851803507}
   - {fileID: 1375596338}
   - {fileID: 465020210}
   - {fileID: 175421884}
   - {fileID: 1558923759}
   - {fileID: 621289648}
-  - {fileID: 1818757978}

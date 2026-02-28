@@ -11,8 +11,8 @@ namespace Ringhold.Characters.States {
 		}
 		public override void OnUpdate() {
 			var input = Character.Input.Move.normalized;
-			var velocity = new Vector3(input.x, 0, input.y) * Character.Stats.MoveSpeed + Physics.gravity;
-			Character.Controller.Move(velocity * Time.deltaTime);
+			var localVelocity = new Vector3(input.x, 0, input.y) * Character.Stats.MoveSpeed;
+			Character.Controller.Velocity = Character.transform.TransformDirection(localVelocity);
 		}
 
 		public override void OnEnter(ICharacterState from) {

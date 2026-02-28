@@ -12,6 +12,7 @@ namespace Ringhold.Characters.States {
 
 		public override void OnEnter(ICharacterState from) {
 			Character.View.PlayIdle();
+			Character.Controller.Velocity = Vector3.zero;
 		}
 	}
 }
