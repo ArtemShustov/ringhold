@@ -9,6 +9,7 @@
 /[Aa]ssets/[Pp]lugin[Yy]our[Gg]ames/[Ee]ditor/*
 *.blend1
 *.blend1.meta
+/[Pp]ackages/*
 
 # but not this
 !README.md
@@ -16,7 +17,8 @@
 !.gitignore
 !.gitattributes
 ![Pp]rojectSettings
-![Pp]ackages
+![Pp]ackages/manifest.json
+![Pp]ackages/packages-lock.json
 ![Aa]ssets
 ![Ss]ource[Gg]enerators
 ![Aa]ssets/[Pp]lugins/[Ss]ource[Gg]enerators
