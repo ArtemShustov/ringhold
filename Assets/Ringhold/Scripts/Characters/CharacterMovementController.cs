@@ -5,24 +5,32 @@ using UnityEngine;
 namespace Ringhold.Characters {
     public class CharacterMovementController: MonoBehaviour, ICharacterController {
         [SerializeField] private KinematicCharacterMotor _motor;
-        [SerializeField] private float _normalSmoothSpeed = 10f;
-        [SerializeField] private float _normalSnapThreshold = 0.1f;
+        [SerializeField] private float _orientationSharpness = 10f;
 
         public Vector3 Velocity { get; set; }
-
-        private Vector3 _smoothedNormal = Vector3.up;
 
         private void Awake() {
             _motor.CharacterController = this;
         }
 
         public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime) {
-            currentVelocity = Velocity; 
+            currentVelocity = Velocity;
         }
         public void UpdateRotation(ref Quaternion currentRotation, float deltaTime) {
-            var targetNormal = _motor.GroundingStatus.FoundAnyGround ? _motor.GroundingStatus.GroundNormal : -WorldRoot.GetGravityAt(transform.position).normalized;
-            _smoothedNormal = Vector3.Slerp(_smoothedNormal, targetNormal, _normalSmoothSpeed * deltaTime);
-            currentRotation = Quaternion.LookRotation(Vector3.forward, _smoothedNormal);
+            var gravity = WorldRoot.GetGravityAt(transform.position);
+            var currentUp = currentRotation * Vector3.up;
+
+            if (_motor.GroundingStatus.IsStableOnGround) {
+                var initialCharacterBottomHemiCenter = _motor.TransientPosition + (currentUp * _motor.Capsule.radius);
+
+                var smoothedGroundNormal = Vector3.Slerp(_motor.CharacterUp, _motor.GroundingStatus.GroundNormal, 1f - Mathf.Exp(-_orientationSharpness * deltaTime));
+                currentRotation = Quaternion.FromToRotation(currentUp, smoothedGroundNormal) * currentRotation;
+
+                _motor.SetTransientPosition(initialCharacterBottomHemiCenter + (currentRotation * Vector3.down * _motor.Capsule.radius));
+            } else {
+                var smoothedGravityDir = Vector3.Slerp(currentUp, -gravity.normalized, 1f - Mathf.Exp(-_orientationSharpness * deltaTime));
+                currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
+            }
         }
 
         public void BeforeCharacterUpdate(float deltaTime) { }
