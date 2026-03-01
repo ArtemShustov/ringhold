@@ -1,3 +1,4 @@
+using Ringhold.Utils;
 using UnityEngine;
 
 namespace Ringhold.Characters.States {
@@ -21,9 +22,10 @@ namespace Ringhold.Characters.States {
 				ParentMachine.Change<Idle>();
 				return true;
 			}
-			
+          
 			return false;
 		}
+
 		public override void OnUpdate() {
 			_progress += Time.deltaTime / _duration;
 			Character.Controller.LocalVelocity = _initialVelocity.normalized 
@@ -31,8 +33,11 @@ namespace Ringhold.Characters.States {
 		}
 
 		public override void OnEnter(ICharacterState from) {
-			_progress = 0;
 			_initialVelocity = Character.Controller.LocalVelocity;
+
+			var currentSpeed = _initialVelocity.magnitude;
+			var normalizedSpeed = Mathf.Clamp01(currentSpeed / Character.Stats.MoveSpeed);
+			_progress = _decelerationCurve.InverseSampleCurve(normalizedSpeed);
 		}
 	}
 }

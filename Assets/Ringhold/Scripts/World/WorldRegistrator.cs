@@ -1,7 +1,7 @@
 using Core.DependencyInjection;
 using UnityEngine;
 
-namespace Ringhold.Scripts.World {
+namespace Ringhold.World {
 	public class WorldRegistrator: Registrator {
 		[SerializeField] private WorldRoot _world;
 		

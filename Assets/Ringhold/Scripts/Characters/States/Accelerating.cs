@@ -1,3 +1,4 @@
+using Ringhold.Utils;
 using UnityEngine;
 
 namespace Ringhold.Characters.States {
@@ -31,7 +32,16 @@ namespace Ringhold.Characters.States {
 		}
 
 		public override void OnEnter(ICharacterState from) {
-			_progress = 0;
+			var input = Character.Input.Move;
+			var targetDirection = new Vector3(input.x, 0, input.y);
+
+			var currentSpeedInTargetDirection = Vector3.Dot(
+				Character.Controller.LocalVelocity,
+				targetDirection.normalized
+			);
+
+			var normalizedProgress = Mathf.Clamp01(currentSpeedInTargetDirection / Character.Stats.MoveSpeed);
+			_progress = _accelerationCurve.InverseSampleCurve(normalizedProgress); 
 		}
 	}
 }

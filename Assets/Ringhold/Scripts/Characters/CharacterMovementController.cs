@@ -1,6 +1,6 @@
 using Core.DependencyInjection;
 using KinematicCharacterController;
-using Ringhold.Scripts.World;
+using Ringhold.World;
 using UnityEngine;
 
 namespace Ringhold.Characters {
