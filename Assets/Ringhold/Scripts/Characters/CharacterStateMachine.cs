@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
+using Core.Utils;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 namespace Ringhold.Characters {
 	public interface ICharacterStateMachine {
+		ICharacterState Current { get; }
+		
 		void Change<T>() where T: ICharacterState;
 		void Change(ICharacterState state);
 	}
@@ -14,6 +19,8 @@ namespace Ringhold.Characters {
 		private readonly Dictionary<Type, ICharacterState> _states = new Dictionary<Type, ICharacterState>();
 		private ICharacterState _currentState;
 		private Character _character;
+		
+		public ICharacterState Current => _currentState;
 
 		private void Awake() {
 			_character = GetComponent<Character>();
@@ -42,6 +49,25 @@ namespace Ringhold.Characters {
 		private void Update() {
 			_currentState?.CheckTransition();
 			_currentState?.OnUpdate();
+		}
+
+		private void OnGUI() {
+			var text = new StringBuilder($"{_character.name}");
+			text.AppendLine($"Speed: {_character.Controller.Velocity.magnitude}");
+			
+			text.AppendLine("<color=#FF00FF>State:");
+			var state = _currentState;
+			while (state != null) {
+				text.AppendLine($"> {state.GetType()}");
+				if (state is ICharacterStateMachine subStateMachine) {
+					state = subStateMachine.Current;
+				} else {
+					break;
+				}
+			}
+			text.Append("</color>");
+			
+			DebugText.Draw(text.ToString(), transform.position, Color.white);
 		}
 	}
 }

@@ -9,7 +9,11 @@ namespace Ringhold.Characters {
 		[Inject] private WorldRoot _world;
 
 		public Vector3 Velocity { get; set; }
-
+		public Vector3 LocalVelocity {
+			get => transform.InverseTransformDirection(Velocity);
+			set => Velocity = transform.TransformDirection(value);
+		}
+		
 		private void Awake() {
 			_motor.CharacterController = this;
 		}

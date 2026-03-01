@@ -22,7 +22,7 @@ namespace Ringhold.Characters {
 			}
     
 			var input = _actions.Player.Move.ReadValue<Vector2>();
-			if (input.sqrMagnitude < 0.0001f) {
+			if (input.sqrMagnitude < Mathf.Epsilon) {
 				return Vector2.zero;
 			}
 

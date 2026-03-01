@@ -1102,6 +1102,8 @@ GameObject:
   - component: {fileID: 599526257}
   - component: {fileID: 599526256}
   - component: {fileID: 599526255}
+  - component: {fileID: 599526258}
+  - component: {fileID: 599526259}
   m_Layer: 6
   m_Name: OnGround
   m_TagString: Untagged
@@ -1117,12 +1119,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599526250}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1375596338}
+  m_Father: {fileID: 1471574268}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &599526255
 MonoBehaviour:
@@ -1136,6 +1138,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79dd1e812444b4f85fc1249248aa2d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Characters.States.Walk
+  _transitions:
+  - rid: 4292281217599668479
+  _moveThreshold: 1e-45
+  references:
+    version: 2
+    RefIds:
+    - rid: 4292281217599668479
+      type: {class: OnGround/ToIdleTransition, ns: Ringhold.Characters.States, asm: Assembly-CSharp}
+      data:
+        GroundState: {fileID: 599526257}
 --- !u!114 &599526256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,6 +1160,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 837fe94dcb524c4397fe3603ea727f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Characters.States.Idle
+  _transitions:
+  - rid: 4292281217599668478
+  _idleThreshold: 1e-45
+  references:
+    version: 2
+    RefIds:
+    - rid: 4292281217599668478
+      type: {class: OnGround/ToMoveTransition, ns: Ringhold.Characters.States, asm: Assembly-CSharp}
+      data:
+        GroundState: {fileID: 599526257}
 --- !u!114 &599526257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,9 +1182,107 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b84e50e69c884ff4a253ce063315b060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Characters.States.OnGround
-  _walkThreshold: 1e-45
-  _idle: {fileID: 599526256}
-  _walk: {fileID: 599526255}
+  _transitions: []
+  _subStates:
+  - {fileID: 599526256}
+  - {fileID: 599526255}
+  - {fileID: 599526258}
+  - {fileID: 599526259}
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &599526258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599526250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b65b9547aa44e42b97b678280dd0237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Characters.States.Accelerating
+  _transitions:
+  - rid: 4292281217599668480
+  _accelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 0.5
+  references:
+    version: 2
+    RefIds:
+    - rid: 4292281217599668480
+      type: {class: OnGround/ToIdleTransition, ns: Ringhold.Characters.States, asm: Assembly-CSharp}
+      data:
+        GroundState: {fileID: 599526257}
+--- !u!114 &599526259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599526250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32eda7e04fef4a0f81665da2ec2d02dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Characters.States.Stopping
+  _transitions:
+  - rid: 4292281217599668481
+  _decelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _duration: 0.5
+  references:
+    version: 2
+    RefIds:
+    - rid: 4292281217599668481
+      type: {class: OnGround/ToMoveTransition, ns: Ringhold.Characters.States, asm: Assembly-CSharp}
+      data:
+        GroundState: {fileID: 599526257}
 --- !u!1 &612776534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,7 +1883,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1186693959}
-  - {fileID: 599526253}
+  - {fileID: 1471574268}
   - {fileID: 714479676}
   - {fileID: 644603301}
   - {fileID: 330585546}
@@ -2042,6 +2162,38 @@ Transform:
   m_Children:
   - {fileID: 200934340}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1471574267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1471574268}
+  m_Layer: 6
+  m_Name: States
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1471574268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471574267}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 599526253}
+  m_Father: {fileID: 1375596338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1851803505
 GameObject:
