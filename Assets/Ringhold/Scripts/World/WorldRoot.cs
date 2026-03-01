@@ -1,18 +1,11 @@
 using UnityEngine;
 
-namespace Ringhold.World {
+namespace Ringhold.Scripts.World {
 	public class WorldRoot: MonoBehaviour {
-		[SerializeField] private Ring _ring;
+		[field: SerializeField] private Transform _center;
+		[field: SerializeField] private Vector2 _walkableRadius = new Vector2(16, 26);
 		
-		private static WorldRoot _instance;
-
-		private void Awake() {
-			if (_instance != null && _instance != this) {
-				Debug.LogError($"{nameof(WorldRoot)} is already exists.");
-			}
-			_instance = this;
-		}
-
-		public static Vector3 GetGravityAt(Vector3 position) => _instance._ring.GetGravityAt(position);
+		public Vector3 Center => _center.position;
+		public Vector2 WalkableRadius => _walkableRadius;
 	}
 }

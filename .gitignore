@@ -6,7 +6,7 @@
 /[Aa]ssets/[Tt]hird[Pp]arty/*
 /[Aa]ssets/[Tt]hird [Pp]arty/*
 /[Aa]ssets/[Pp]lugins/*
-/[Aa]ssets/[Pp]lugin[Yy]our[Gg]ames/[Ee]ditor/*
+/[Aa]ssets/[Pp]lugin[Yy]our[Gg]ames/*
 *.blend1
 *.blend1.meta
 /[Pp]ackages/*

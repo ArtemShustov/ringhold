@@ -3,6 +3,7 @@
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.handzlikchris.fastscriptreload": "https://github.com/handzlikchris/FastScriptReload.git?path=Assets",
     "com.mackysoft.serializereference-extensions": "https://github.com/mackysoft/Unity-SerializeReferenceExtensions.git?path=Assets/MackySoft/MackySoft.SerializeReferenceExtensions",
+    "com.unity.ai.navigation": "2.0.11",
     "com.unity.ide.rider": "3.0.39",
     "com.unity.inputsystem": "1.18.0",
     "com.unity.localization": "1.5.9",

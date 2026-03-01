@@ -1,45 +1,63 @@
+using Core.DependencyInjection;
 using KinematicCharacterController;
-using Ringhold.World;
+using Ringhold.Scripts.World;
 using UnityEngine;
 
 namespace Ringhold.Characters {
-    public class CharacterMovementController: MonoBehaviour, ICharacterController {
-        [SerializeField] private KinematicCharacterMotor _motor;
-        [SerializeField] private float _orientationSharpness = 10f;
+	public class CharacterMovementController: MonoBehaviour, ICharacterController {
+		[SerializeField] private KinematicCharacterMotor _motor;
+		[Inject] private WorldRoot _world;
 
-        public Vector3 Velocity { get; set; }
+		public Vector3 Velocity { get; set; }
 
-        private void Awake() {
-            _motor.CharacterController = this;
-        }
+		private void Awake() {
+			_motor.CharacterController = this;
+		}
 
-        public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime) {
-            currentVelocity = Velocity;
-        }
-        public void UpdateRotation(ref Quaternion currentRotation, float deltaTime) {
-            var gravity = WorldRoot.GetGravityAt(transform.position);
-            var currentUp = currentRotation * Vector3.up;
+		public void UpdateVelocity(ref Vector3 currentVelocity, float deltaTime) {
+			var walkable = _world.WalkableRadius;
+			var center = _world.Center;
+    
+			var toPlayer = transform.position - center;
+			var flatOffset = new Vector3(toPlayer.x, 0f, toPlayer.z);
+    
+			currentVelocity = Velocity;
+    
+			var nextPosition = transform.position + currentVelocity * deltaTime;
+			var nextOffset = new Vector3(nextPosition.x - center.x, 0f, nextPosition.z - center.z);
+			var nextDistance = nextOffset.magnitude;
+    
+			if (nextDistance < walkable.x) {
+				var pushDir = nextOffset.sqrMagnitude > 0.0001f 
+					? nextOffset.normalized 
+					: flatOffset.normalized;
+				currentVelocity += pushDir * ((walkable.x - nextDistance) / deltaTime);
+			} else if (nextDistance > walkable.y) {
+				var clampedPos = center + nextOffset.normalized * walkable.y;
+				clampedPos.y = nextPosition.y;
+				var correction = (clampedPos - nextPosition) / deltaTime;
+				currentVelocity += new Vector3(correction.x, 0f, correction.z);
+			}
+    
+			if (!_motor.GroundingStatus.IsStableOnGround) {
+				currentVelocity += Physics.gravity;
+			}
+		}
+		public void UpdateRotation(ref Quaternion currentRotation, float deltaTime) {
+			var center = _world.Center;
+			center.y = transform.position.y;
+			var toCenter = (center - transform.position).normalized;
+			
+			currentRotation = Quaternion.LookRotation(toCenter, Vector3.up);
+		}
 
-            if (_motor.GroundingStatus.IsStableOnGround) {
-                var initialCharacterBottomHemiCenter = _motor.TransientPosition + (currentUp * _motor.Capsule.radius);
-
-                var smoothedGroundNormal = Vector3.Slerp(_motor.CharacterUp, _motor.GroundingStatus.GroundNormal, 1f - Mathf.Exp(-_orientationSharpness * deltaTime));
-                currentRotation = Quaternion.FromToRotation(currentUp, smoothedGroundNormal) * currentRotation;
-
-                _motor.SetTransientPosition(initialCharacterBottomHemiCenter + (currentRotation * Vector3.down * _motor.Capsule.radius));
-            } else {
-                var smoothedGravityDir = Vector3.Slerp(currentUp, -gravity.normalized, 1f - Mathf.Exp(-_orientationSharpness * deltaTime));
-                currentRotation = Quaternion.FromToRotation(currentUp, smoothedGravityDir) * currentRotation;
-            }
-        }
-
-        public void BeforeCharacterUpdate(float deltaTime) { }
-        public void PostGroundingUpdate(float deltaTime) { }
-        public void AfterCharacterUpdate(float deltaTime) { }
-        public bool IsColliderValidForCollisions(Collider coll) => true;
-        public void OnGroundHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport) { }
-        public void OnMovementHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport) { }
-        public void ProcessHitStabilityReport(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, Vector3 atCharacterPosition, Quaternion atCharacterRotation, ref HitStabilityReport hitStabilityReport) { }
-        public void OnDiscreteCollisionDetected(Collider hitCollider) { }
-    }
+		public void BeforeCharacterUpdate(float deltaTime) { }
+		public void PostGroundingUpdate(float deltaTime) { }
+		public void AfterCharacterUpdate(float deltaTime) { }
+		public bool IsColliderValidForCollisions(Collider coll) => true;
+		public void OnGroundHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport) { }
+		public void OnMovementHit(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, ref HitStabilityReport hitStabilityReport) { }
+		public void ProcessHitStabilityReport(Collider hitCollider, Vector3 hitNormal, Vector3 hitPoint, Vector3 atCharacterPosition, Quaternion atCharacterRotation, ref HitStabilityReport hitStabilityReport) { }
+		public void OnDiscreteCollisionDetected(Collider hitCollider) { }
+	}
 }
