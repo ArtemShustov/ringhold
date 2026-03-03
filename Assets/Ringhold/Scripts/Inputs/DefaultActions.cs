@@ -236,7 +236,7 @@ namespace Ringhold.Inputs
                 {
                     ""name"": """",
                     ""id"": ""1c04ea5f-b012-41d1-a6f7-02e963b52893"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -258,7 +258,7 @@ namespace Ringhold.Inputs
                 {
                     ""name"": """",
                     ""id"": ""bed75065-8c9d-4efd-832f-2874ea76ff97"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

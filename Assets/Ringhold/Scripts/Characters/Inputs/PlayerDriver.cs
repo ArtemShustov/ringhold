@@ -3,18 +3,28 @@ using Ringhold.Inputs;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Ringhold.Characters {
-	public class CharacterInput: MonoBehaviour {
-		private Camera _camera;
-		private DefaultActions _actions;
+namespace Ringhold.Characters.Inputs {
+	public class PlayerDriver: ICharacterInput, IDisposable {
+		private readonly Camera _camera;
+		private readonly DefaultActions _actions;
+		public InputPlayer Player { get; }
 
 		public Vector2 Move => GetRelatedMove();
 		public event Action Interact;
 
-		private void Awake() {
-			_actions = new DefaultActions();
+		public PlayerDriver(InputPlayer player) {
 			_camera = Camera.main;
+			Player = player;
+			_actions = Player.Actions;
+			Subscribe();
 		}
+		public void Dispose() {
+			Disable();
+			Unsubscribe();
+		}
+		
+		public void Enable() => _actions.Player.Enable();
+		public void Disable() => _actions.Player.Disable();
 
 		private Vector2 GetRelatedMove() {
 			if (_actions == null) {
@@ -26,7 +36,7 @@ namespace Ringhold.Characters {
 				return Vector2.zero;
 			}
 
-			var up = transform.up;
+			var up = _camera.transform.up;
 			var camForward = Vector3.ProjectOnPlane(_camera.transform.forward, up);
 			var camRight = Vector3.ProjectOnPlane(_camera.transform.right, up);
 
@@ -40,18 +50,17 @@ namespace Ringhold.Characters {
 			var worldMove = camForward * input.y + camRight * input.x;
 			worldMove = worldMove.normalized * Mathf.Clamp01(input.magnitude);
 
-			var localForward = transform.InverseTransformDirection(worldMove);
+			var localForward = _camera.transform.InverseTransformDirection(worldMove);
 			return new Vector2(localForward.x, localForward.z);
 		}
 		
-		private void OnInteractPerformed(InputAction.CallbackContext context) => Interact?.Invoke();
-		private void OnEnable() {
-			_actions.Player.Enable();
+		private void Subscribe() {
 			_actions.Player.Interact.performed += OnInteractPerformed;
 		}
-		private void OnDisable() {
-			_actions.Player.Disable();
+		private void Unsubscribe() {
 			_actions.Player.Interact.performed -= OnInteractPerformed;
 		}
+		
+		private void OnInteractPerformed(InputAction.CallbackContext context) => Interact?.Invoke();
 	}
 }

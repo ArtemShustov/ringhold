@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Ringhold/Scenes/_Boot.unity
+    guid: c5caeb42153cadf45970d8d20dd28384
+  - enabled: 1
     path: Assets/Ringhold/Scenes/World.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
