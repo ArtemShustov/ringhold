@@ -53,6 +53,7 @@ namespace Ringhold.Characters {
 		private void OnGUI() {
 			var text = new StringBuilder($"{_character.name}");
 			text.AppendLine($"Speed: {_character.Controller.Velocity.magnitude}");
+			text.AppendLine($"Driver: {_character.InputContainer.Current?.GetType()}");
 			
 			text.AppendLine("<color=#FF00FF>State:");
 			var state = _currentState;

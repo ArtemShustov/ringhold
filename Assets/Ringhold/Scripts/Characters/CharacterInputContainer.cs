@@ -9,11 +9,13 @@ namespace Ringhold.Characters {
 		private ICharacterInput _current;
 		private bool _subscribed = false;
 
+		public ICharacterInput Current => _current;
+		
 		public Vector2 Move => _current?.Move ?? Vector2.zero;
 		public event Action Interact;
 
 		private void Awake() {
-			if (_defaultDriver != null) {
+			if (_default != null) {
 				_defaultDriver = _default.GetComponent<ICharacterInput>();
 				if (_defaultDriver == null) {
 					Debug.LogWarning("Default input driver not found.");
