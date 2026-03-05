@@ -1,3 +1,4 @@
+using Ringhold.Interactions;
 using Ringhold.Picking;
 using UnityEngine;
 
@@ -16,9 +17,22 @@ namespace Ringhold.Items {
 		public void Add(int count) {
 			Count += count;
 		}
-		
 		public void ApplyVelocity(Vector3 velocity) {
 			_rigidbody.AddForce(velocity, ForceMode.VelocityChange);
+		}
+
+		public override void Interact(InteractionContext context) {
+			if (context.Hand.Current is DroppedItem item && item.Item == Item) {
+				Add(item.Count);
+				context.Hand.Clear();
+				Destroy(item.gameObject);
+				return;
+			}
+			base.Interact(context);
+		}
+		public override bool CanInteract(InteractionContext context) {
+			var canStack = context.Hand.Current is DroppedItem item && item.Item == Item;
+			return canStack || base.CanInteract(context);
 		}
 
 		private void OnTriggerEnter(Collider other) {

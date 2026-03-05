@@ -8,16 +8,16 @@ namespace Ringhold.Picking {
 		[field: SerializeField] public UnityEvent Dropped { get; private set; }
 		[field: SerializeField] public UnityEvent<InteractionHighlightState> StateChanged { get; private set; }
 		
-		public void Interact(InteractionContext context) {
+		public virtual void Interact(InteractionContext context) {
 			if (!CanInteract(context)) {
 				return;
 			}
 			context.Hand.Pick(this);
 		}
-		public bool CanInteract(InteractionContext context) {
+		public virtual bool CanInteract(InteractionContext context) {
 			return context.Hand.Current == null;
 		}
-		public void SetInteractionState(InteractionHighlightState state) {
+		public virtual void SetInteractionState(InteractionHighlightState state) {
 			StateChanged?.Invoke(state);
 		}
 		
