@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36d13970efa44f6a4d9ec32cbb666ac, type: 3}
+  m_Name: Item
+  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Items.Item
+  <Id>k__BackingField: test
+  <Name>k__BackingField:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  <Prefab>k__BackingField: {fileID: 4562871978794209398, guid: cf561f190fe8d384ca24a6cdb90bb7f8, type: 3}
+  references:
+    version: 2
+    RefIds: []

@@ -39,7 +39,7 @@ namespace Core.DependencyInjection {
 				var target = childs.Dequeue();
 				Inject(target, container);
 				
-				foreach (Transform child in gameObject.transform) {
+				foreach (Transform child in target.transform) {
 					childs.Enqueue(child.gameObject);
 				}
 			}
@@ -51,8 +51,9 @@ namespace Core.DependencyInjection {
 			
 			var instance = UnityEngine.Object.Instantiate(prefab);
 			InjectTree(instance.gameObject, container);
-			
 			instance.gameObject.SetActive(wasActive);
+			
+			prefab.gameObject.SetActive(wasActive);
 			return instance;
 		}
 		public static T Instantiate<T>(T prefab, Transform parent, DIContainer container) where T: Component {

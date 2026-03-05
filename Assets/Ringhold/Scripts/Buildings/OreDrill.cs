@@ -1,3 +1,4 @@
+using Ringhold.CMS;
 using Ringhold.Interactions;
 using Ringhold.Picking;
 using UnityEngine;
@@ -5,7 +6,11 @@ using UnityEngine;
 namespace Ringhold.Buildings {
 	public class OreDrill : MonoBehaviour, IOreDrill, IPickupable, IInteraction {
 		[field: SerializeField] public float Efficiency { get; private set; } = 1f;
+		[SerializeField] private Vector3 _throwVelocity = new Vector3(2, 5f, 0);
+		[Space]
+		[SerializeField] private Transform _itemDropRoot;
 		[SerializeField] private Collider _collider;
+		
 		private OreVein _vein;
 		private float _timer;
 		
@@ -52,6 +57,14 @@ namespace Ringhold.Buildings {
 
 		private void OnResourceMined(int count) {
 			Debug.Log($"[{name}] Mined {count} of {_vein?.Resource?.Id ?? "null"}");
+			
+			if (_vein?.Resource == null) {
+				return;
+			}
+			var resource = _vein.Resource;
+			var view = ItemsPool.Instance.GetDroppedItem(resource, count);
+			view.transform.position = _itemDropRoot.position;
+			view.ApplyVelocity(_itemDropRoot.TransformDirection(_throwVelocity));
 		}
 		public void OnPickup() {
 			SetVein(null);

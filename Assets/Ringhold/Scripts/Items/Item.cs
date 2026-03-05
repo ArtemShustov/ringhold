@@ -6,5 +6,6 @@ namespace Ringhold.Items {
 	public class Item: ScriptableObject {
 		[field: SerializeField] public string Id { get; private set; }
 		[field: SerializeField] public LocalizedString Name { get; private set; }
+		[field: SerializeField] public DroppedItem Prefab { get; private set; }
 	}
 }
