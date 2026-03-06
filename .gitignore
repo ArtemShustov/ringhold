@@ -11,6 +11,8 @@
 *.blend1.meta
 /[Pp]ackages/*
 /[Aa]ssets/KinematicCharacterController/*
+*.kra~
+*.PNG~
 
 # but not this
 !README.md
