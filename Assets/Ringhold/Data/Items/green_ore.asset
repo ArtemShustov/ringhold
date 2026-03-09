@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d36d13970efa44f6a4d9ec32cbb666ac, type: 3}
-  m_Name: Item
+  m_Name: green_ore
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Items.Item
-  <Id>k__BackingField: test
+  <Id>k__BackingField: green_ore
   <Name>k__BackingField:
     m_TableReference:
       m_TableCollectionName: 

@@ -218,6 +218,13 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "eu.netherlands3d.poly2tri": {
+      "version": "https://github.com/Netherlands3D/poly2tri.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "38a1c9f10f1fba2394f3b20eed60920a1ffef3b4"
+    },
     "com.unity.modules.adaptiveperformance": {
       "version": "1.0.0",
       "depth": 0,

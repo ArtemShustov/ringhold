@@ -8,6 +8,7 @@
     "com.unity.inputsystem": "1.18.0",
     "com.unity.localization": "1.5.9",
     "com.unity.render-pipelines.universal": "17.3.0",
+    "eu.netherlands3d.poly2tri": "https://github.com/Netherlands3D/poly2tri.git",
     "com.unity.modules.adaptiveperformance": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
     "com.unity.modules.assetbundle": "1.0.0",
