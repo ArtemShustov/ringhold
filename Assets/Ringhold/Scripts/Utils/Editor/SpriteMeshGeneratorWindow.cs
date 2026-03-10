@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using Ringhold.Utils;
 
 namespace Ringhold.Utils.Editor {
 	public class SpriteMeshGeneratorWindow : EditorWindow {
@@ -11,7 +10,7 @@ namespace Ringhold.Utils.Editor {
 		private const string PrefSideMaterial = "SpriteMeshGen_SideMaterial";
 
 		private Sprite _sprite;
-		private Material _facesMaterialRef;
+		private Material _facesMaterial;
 		private Material _sideMaterial;
 		private SpriteMesh.SpriteMeshConfig _config;
 
@@ -27,7 +26,7 @@ namespace Ringhold.Utils.Editor {
 
 			var facesMaterialPath = EditorPrefs.GetString(PrefFacesMaterial, "");
 			if (!string.IsNullOrEmpty(facesMaterialPath)) {
-				_facesMaterialRef = AssetDatabase.LoadAssetAtPath<Material>(facesMaterialPath);
+				_facesMaterial = AssetDatabase.LoadAssetAtPath<Material>(facesMaterialPath);
 			}
 
 			var sideMaterialPath = EditorPrefs.GetString(PrefSideMaterial, "");
@@ -41,7 +40,7 @@ namespace Ringhold.Utils.Editor {
 			EditorPrefs.SetFloat(PrefContoursDetail, _config.ContoursDetail);
 			EditorPrefs.SetFloat(PrefDouglasPeuckerDetail, _config.DouglasPeuckerDetail);
 
-			var facesMaterialPath = _facesMaterialRef != null ? AssetDatabase.GetAssetPath(_facesMaterialRef) : "";
+			var facesMaterialPath = _facesMaterial != null ? AssetDatabase.GetAssetPath(_facesMaterial) : "";
 			EditorPrefs.SetString(PrefFacesMaterial, facesMaterialPath);
 
 			var sideMaterialPath = _sideMaterial != null ? AssetDatabase.GetAssetPath(_sideMaterial) : "";
@@ -54,7 +53,7 @@ namespace Ringhold.Utils.Editor {
 
 			EditorGUILayout.Space();
 			EditorGUILayout.LabelField("Materials", EditorStyles.boldLabel);
-			_facesMaterialRef = (Material)EditorGUILayout.ObjectField("Faces Material", _facesMaterialRef, typeof(Material), false);
+			_facesMaterial = (Material)EditorGUILayout.ObjectField("Faces Material", _facesMaterial, typeof(Material), false);
 			_sideMaterial = (Material)EditorGUILayout.ObjectField("Side Material", _sideMaterial, typeof(Material), false);
 
 			EditorGUILayout.Space();
@@ -92,7 +91,8 @@ namespace Ringhold.Utils.Editor {
 
 			var prefabPath = absPath;
 
-			var frontMat = _facesMaterialRef != null ? new Material(_facesMaterialRef) : new Material(Shader.Find("Standard"));
+			var frontMat = new Material(_facesMaterial);
+			frontMat.parent = _facesMaterial;
 			frontMat.mainTexture = _sprite.texture;
 			frontMat.name = $"{texName}_Front";
 
@@ -102,7 +102,16 @@ namespace Ringhold.Utils.Editor {
 
 			var prefab = PrefabUtility.SaveAsPrefabAsset(go, prefabPath);
 			DestroyImmediate(go);
-
+			
+			
+			var existingAssets = AssetDatabase.LoadAllAssetsAtPath(prefabPath);
+			foreach (var asset in existingAssets) {
+				if (asset is GameObject or Component) {
+					continue;
+				}
+				AssetDatabase.RemoveObjectFromAsset(asset);
+				DestroyImmediate(asset, true);
+			}
 			AssetDatabase.AddObjectToAsset(mesh, prefab);
 			AssetDatabase.AddObjectToAsset(frontMat, prefab);
 
