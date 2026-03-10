@@ -1,0 +1,247 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4967569477493076609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6126812573851543182}
+  m_Layer: 6
+  m_Name: DropRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6126812573851543182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4967569477493076609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4911694400528115588}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6609014315210589773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1008936310568879202}
+  m_Layer: 6
+  m_Name: View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1008936310568879202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6609014315210589773}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7636631024323040507}
+  - {fileID: 8467098535060996261}
+  m_Father: {fileID: 4911694400528115588}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8088231787167630628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4911694400528115588}
+  - component: {fileID: 4443102756144902046}
+  - component: {fileID: 2504780086910946124}
+  - component: {fileID: 175656999227171857}
+  m_Layer: 6
+  m_Name: OreDrill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4911694400528115588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8088231787167630628}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6126812573851543182}
+  - {fileID: 1008936310568879202}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4443102756144902046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8088231787167630628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15190aacb2fa4e0ab4e6b1beecbcaf03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Buildings.OreDrill
+  <Efficiency>k__BackingField: 1
+  _throwVelocity: {x: 2, y: 5, z: 0}
+  _itemDropRoot: {fileID: 6126812573851543182}
+  _collider: {fileID: 175656999227171857}
+--- !u!114 &2504780086910946124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8088231787167630628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1331ece9c5064546a6cb0ef16ba50805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.World.AlightToRoot
+--- !u!65 &175656999227171857
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8088231787167630628}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5, y: 2, z: 0.2}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!1001 &1171270521223917166
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1008936310568879202}
+    m_Modifications:
+    - target: {fileID: 736359593993749181, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_Name
+      value: Drill_Piston
+      objectReference: {fileID: 0}
+    - target: {fileID: 736359593993749181, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+--- !u!4 &7636631024323040507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8771872026134624917, guid: 53e8b7eacfa24f243959b10ede09df47, type: 3}
+  m_PrefabInstance: {fileID: 1171270521223917166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4005751347447229151
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1008936310568879202}
+    m_Modifications:
+    - target: {fileID: 4762104574723549818, guid: 645fa7caa11fecb4294fa8e65464eec3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102559359809671031, guid: 645fa7caa11fecb4294fa8e65464eec3, type: 3}
+      propertyPath: m_Name
+      value: Drill_Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102559359809671031, guid: 645fa7caa11fecb4294fa8e65464eec3, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 645fa7caa11fecb4294fa8e65464eec3, type: 3}
+--- !u!4 &8467098535060996261 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4762104574723549818, guid: 645fa7caa11fecb4294fa8e65464eec3, type: 3}
+  m_PrefabInstance: {fileID: 4005751347447229151}
+  m_PrefabAsset: {fileID: 0}

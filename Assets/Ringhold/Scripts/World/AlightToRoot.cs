@@ -27,7 +27,9 @@ namespace Ringhold.World {
 		}
 
 		private void OnEnable() {
-			UpdateRotation();
+			if (_world != null) {
+				UpdateRotation();
+			}
 		}
 
 		private void OnDrawGizmosSelected() {

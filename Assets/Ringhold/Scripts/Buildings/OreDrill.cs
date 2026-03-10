@@ -29,7 +29,7 @@ namespace Ringhold.Buildings {
 			_timer += Time.deltaTime;
 
 			var interval = MineInterval;
-			if (_timer < MineInterval) {
+			if (_timer < interval) {
 				return;
 			}
 

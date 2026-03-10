@@ -17,6 +17,9 @@ namespace Ringhold.Items {
 		public void Add(int count) {
 			Count += count;
 		}
+		public void Take(int count) {
+			Count -= count;
+		}
 		public void ApplyVelocity(Vector3 velocity) {
 			_rigidbody.AddForce(velocity, ForceMode.VelocityChange);
 		}
