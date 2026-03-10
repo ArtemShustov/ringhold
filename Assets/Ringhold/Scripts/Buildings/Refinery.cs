@@ -1,35 +1,38 @@
 using System;
 using System.Linq;
+using Core.DependencyInjection;
 using Ringhold.CMS;
 using Ringhold.Items;
+using Ringhold.World;
 using UnityEngine;
 
 namespace Ringhold.Buildings {
-	public class Refinery : MonoBehaviour {
+	public class Refinery : MonoBehaviour, ITickable {
 		[Header("Settings")]
 		[SerializeField] private RefineryRecipe[] _recipes;
-		[SerializeField] private float _duration = 1f;
+		[SerializeField, Min(0)] private int _interval = 20;
+
 		[Header("Components")]
 		[SerializeField] private ItemSlot _input;
 		[SerializeField] private ItemSlot _output;
+		[Inject] private ITickGroup _tickGroup;
 
-		private float _timer;
+		private int _timer;
 		private RefineryRecipe _current;
 
-		private void Update() {
+		public void OnTick() {
 			if (!_current.IsValid && !TakeItem(1)) {
 				return;
 			}
 
-			_timer += Time.deltaTime;
+			_timer += 1;
 
-			if (_timer < _duration) {
+			if (_timer < _interval) {
 				return;
 			}
 
-			var count = Mathf.FloorToInt(_timer / _duration);
-			_timer -= _duration * count;
-			OnRefined(count);
+			_timer = 0;
+			OnRefined(1);
 		}
 
 		private void OnRefined(int count) {
@@ -60,31 +63,39 @@ namespace Ringhold.Buildings {
 			}
 
 			return true;
-			
+
 			bool CanTake() {
 				return inputItem != null
-				       && inputItem.Count >= count
-				       && TryGetRecipe(inputItem.Item, out var recipe)
-				       && (_output.Current == null || _output.Current.Item == recipe.Output);
+					&& inputItem.Count >= count
+					&& TryGetRecipe(inputItem.Item, out var recipe)
+					&& (_output.Current == null || _output.Current.Item == recipe.Output);
 			}
 		}
+
 		private bool TryGetRecipe(Item input, out RefineryRecipe recipe) {
 			recipe = _recipes.FirstOrDefault(r => r.Input == input);
 			return recipe.Input == input;
+		}
+
+		private void OnEnable() {
+			_tickGroup.Subscribe(this);
+		}
+		private void OnDisable() {
+			_tickGroup.Unsubscribe(this);
 		}
 
 		[Serializable]
 		public struct RefineryRecipe {
 			public Item Input;
 			public Item Output;
-			
+
 			public bool IsValid => Input != null && Output != null;
 		}
 
 		[Serializable]
-		public class RefineryInputItemFilter: IItemFilter {
+		public class RefineryInputItemFilter : IItemFilter {
 			[SerializeField] private Refinery _refinery;
-			
+
 			public bool Accept(Item item) => _refinery?.TryGetRecipe(item, out _) ?? false;
 		}
 	}

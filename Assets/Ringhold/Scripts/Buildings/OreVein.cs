@@ -6,21 +6,20 @@ using UnityEngine;
 namespace Ringhold.Buildings {
 	[SelectionBase]
 	public class OreVein: MonoBehaviour, IInteraction {
-		[Header("Resource")]
+		[field: Header("Resource")]
 		[field: SerializeField] public Item Resource { get; private set; }
-		[field: SerializeField] public float Productivity { get; private set; }
 		[field: SerializeField] public int MineLevel { get; private set; }
 		
 		[Header("Storage")]
-		[SerializeField] private float _remaining;
-		[field: SerializeField] public float Capacity { get; private set; }
+		[SerializeField] private int _remaining;
+		[field: SerializeField] public int Capacity { get; private set; }
 		[field: SerializeField] public bool Infinite { get; private set; }
 
 		private IOreDrill _drill;
 		
-		public float Remaining => Infinite ? Mathf.Infinity : _remaining;
+		public int Remaining => Infinite ? int.MaxValue : _remaining;
 
-		public void Take(float amount) {
+		public void Take(int amount) {
 			_remaining = Mathf.Max(0, _remaining - amount);
 		}
 		
