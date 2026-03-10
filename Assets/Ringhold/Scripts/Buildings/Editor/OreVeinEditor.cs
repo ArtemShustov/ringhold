@@ -22,6 +22,10 @@ namespace Ringhold.Buildings.Editor {
 		}
 
 		public override void OnInspectorGUI() {
+			GUI.enabled = false;
+			EditorGUILayout.ObjectField("Script", MonoScript.FromMonoBehaviour((MonoBehaviour)target), typeof(MonoScript), false);
+			GUI.enabled = true;
+			
 			serializedObject.Update();
 
 			CoolGUILayout.SectionHeader("Resource");

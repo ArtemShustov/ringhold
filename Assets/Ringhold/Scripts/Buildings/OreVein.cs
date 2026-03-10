@@ -4,6 +4,7 @@ using Ringhold.Picking;
 using UnityEngine;
 
 namespace Ringhold.Buildings {
+	[SelectionBase]
 	public class OreVein: MonoBehaviour, IInteraction {
 		[Header("Resource")]
 		[field: SerializeField] public Item Resource { get; private set; }

@@ -4,7 +4,8 @@ using Ringhold.Picking;
 using UnityEngine;
 
 namespace Ringhold.Buildings {
-	public class OreDrill : MonoBehaviour, IOreDrill, IPickupable, IInteraction {
+	[SelectionBase]
+	public class OreDrill: MonoBehaviour, IOreDrill, IPickupable, IInteraction {
 		[field: SerializeField] public float Efficiency { get; private set; } = 1f;
 		[SerializeField] private Vector3 _throwVelocity = new Vector3(2, 5f, 0);
 		[Space]
