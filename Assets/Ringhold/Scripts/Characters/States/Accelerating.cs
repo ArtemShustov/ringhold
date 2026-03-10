@@ -26,13 +26,13 @@ namespace Ringhold.Characters.States {
 		}
 		public override void OnUpdate() {
 			_progress += Time.deltaTime / _duration;
-			var input = Character.Input.Move;
+			var input = Character.Input.Move.normalized;
 			Character.Controller.LocalVelocity = new Vector3(input.x, 0, input.y) 
 			                                     * (Character.Stats.MoveSpeed * _accelerationCurve.Evaluate(_progress));
 		}
 
 		public override void OnEnter(ICharacterState from) {
-			var input = Character.Input.Move;
+			var input = Character.Input.Move.normalized;
 			var targetDirection = new Vector3(input.x, 0, input.y);
 
 			var currentSpeedInTargetDirection = Vector3.Dot(
