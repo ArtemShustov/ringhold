@@ -45,6 +45,17 @@ namespace Core.DependencyInjection {
 			}
 		}
 
+		public static GameObject Instantiate(GameObject prefab, DIContainer container) {
+			var wasActive = prefab.gameObject.activeSelf;
+			prefab.gameObject.SetActive(false);
+			
+			var instance = UnityEngine.Object.Instantiate(prefab);
+			InjectTree(instance.gameObject, container);
+			instance.gameObject.SetActive(wasActive);
+			
+			prefab.gameObject.SetActive(wasActive);
+			return instance;
+		}
 		public static T Instantiate<T>(T prefab, DIContainer container) where T: Component {
 			var wasActive = prefab.gameObject.activeSelf;
 			prefab.gameObject.SetActive(false);

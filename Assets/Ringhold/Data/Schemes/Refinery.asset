@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4ceea1d7742483bac28a06e4e0287b0, type: 3}
-  m_Name: Refinery_Scheme
+  m_Name: Refinery
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Scripts.Construction.ConstructionDefinition
-  <Id>k__BackingField: Refinery_Scheme
+  <Id>k__BackingField: Refinery
   _requiredItems:
   - Item: {fileID: 11400000, guid: fbff09497d39c884f804a00c3836ca7c, type: 2}
     Count: 2

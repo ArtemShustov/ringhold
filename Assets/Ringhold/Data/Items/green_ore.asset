@@ -22,7 +22,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  <Prefab>k__BackingField: {fileID: 4562871978794209398, guid: cf561f190fe8d384ca24a6cdb90bb7f8, type: 3}
+  <Prefab>k__BackingField: {fileID: 11400000, guid: 8b0b6ff211e5d464c8f489635bb3120a, type: 2}
   references:
     version: 2
     RefIds: []

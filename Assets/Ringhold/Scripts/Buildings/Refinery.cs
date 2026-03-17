@@ -37,7 +37,7 @@ namespace Ringhold.Buildings {
 
 		private void OnRefined(int count) {
 			if (_output.Current == null) {
-				var item = ItemsPool.Instance.GetDroppedItem(_current.Output, count);
+				var item = GameResources.ItemsRegistry.GetDroppedItem(_current.Output, count);
 				item.OnPickup();
 				_output.Put(item);
 			} else {

@@ -64,7 +64,7 @@ namespace Ringhold.Construction {
 			Debug.Log($"[{name}] Added {item.Count} of {item.Item.name}");
 
 			if (IsFinished()) {
-				var building = BuildingsPool.Instance.GetInstance(Scheme.Building);
+				var building = GameResources.EntityRegistry.Pool.Get(Scheme.Building);
 				building.transform.position = transform.position;
 				building.transform.rotation = transform.rotation;
 				

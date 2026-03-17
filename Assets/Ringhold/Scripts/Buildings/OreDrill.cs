@@ -48,7 +48,7 @@ namespace Ringhold.Buildings {
 				return;
 			}
 			var resource = _vein.Resource;
-			var view = ItemsPool.Instance.GetDroppedItem(resource, count);
+			var view = GameResources.ItemsRegistry.GetDroppedItem(resource, count);
 			view.transform.position = _itemDropRoot.position;
 			view.ApplyVelocity(_itemDropRoot.TransformDirection(_throwVelocity));
 		}

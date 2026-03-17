@@ -15,11 +15,23 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 7eda200858eeafd41aecaeadef77eb39
   m_SerializeEntries:
+  - m_GUID: 76e34cf598f8760459fa52f06d5831cd
+    m_Address: Assets/Ringhold/Data/Entities
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Entity
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac94c3445dacdc44ca51ef4fea5adeda
     m_Address: Assets/Ringhold/Data/Items
     m_ReadOnly: 0
     m_SerializedLabels:
     - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba2f20df293bd4446beac17e61c94cbd
+    m_Address: Assets/Ringhold/Data/Schemes
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scheme
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 765b73bb1af57994fb183ab50eefd7a8, type: 2}
