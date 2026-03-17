@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 4911694400528115588}
   - component: {fileID: -3814094973241704517}
   - component: {fileID: 4443102756144902046}
+  - component: {fileID: 233209523252977475}
   - component: {fileID: 2504780086910946124}
   - component: {fileID: 175656999227171857}
   m_Layer: 6
@@ -129,7 +130,76 @@ MonoBehaviour:
   _interval: 20
   _throwVelocity: {x: 2, y: 5, z: 0}
   _itemDropRoot: {fileID: 6126812573851543182}
-  _collider: {fileID: 175656999227171857}
+--- !u!114 &233209523252977475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8088231787167630628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170eec8cc87d4e9585d688e0a6e100d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Picking.Pickupable
+  <Priority>k__BackingField: 2
+  <Picked>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4443102756144902046}
+        m_TargetAssemblyTypeName: Ringhold.Buildings.OreDrill, Assembly-CSharp
+        m_MethodName: ClearVein
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 175656999227171857}
+        m_TargetAssemblyTypeName: UnityEngine.BoxCollider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  <Dropped>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4443102756144902046}
+        m_TargetAssemblyTypeName: Ringhold.Buildings.OreDrill, Assembly-CSharp
+        m_MethodName: ClearVein
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 175656999227171857}
+        m_TargetAssemblyTypeName: UnityEngine.BoxCollider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  <StateChanged>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2504780086910946124
 MonoBehaviour:
   m_ObjectHideFlags: 0

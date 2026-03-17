@@ -4,6 +4,10 @@ using UnityEngine.Events;
 
 namespace Ringhold.Picking {
 	public class Pickupable: MonoBehaviour, IPickupable, IInteraction {
+		[field: Header("Settings")]
+		[field: SerializeField] public InteractionPriority Priority { get; set; } = InteractionPriority.Normal;
+		
+		[field: Header("Events")]
 		[field: SerializeField] public UnityEvent Picked { get; private set; }
 		[field: SerializeField] public UnityEvent Dropped { get; private set; }
 		[field: SerializeField] public UnityEvent<InteractionHighlightState> StateChanged { get; private set; }

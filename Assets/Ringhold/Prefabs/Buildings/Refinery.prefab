@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170eec8cc87d4e9585d688e0a6e100d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Picking.Pickupable
+  <Priority>k__BackingField: 2
   <Picked>k__BackingField:
     m_PersistentCalls:
       m_Calls:

@@ -6,6 +6,16 @@ namespace Ringhold.Picking {
 		[SerializeField] private LayerMask _groundRayMask = ~0;
 		[SerializeField] private Transform _root;
 		public IPickupable Current { get; private set; }
+
+		public bool CurrentIs<T>(out T current) {
+			current = Current is T c ? c : default;
+			return Current switch {
+				null => false,
+				T => true,
+				Component component => component.gameObject.TryGetComponent<T>(out current),
+				_ => false
+			};
+		}
 		
 		public void Pick(IPickupable item) {
 			if (Current == item) {

@@ -8,8 +8,9 @@ namespace Ringhold.Interactions {
 		[SerializeField] private float _interactionRadius = 2.5f;
 		[SerializeField] private LayerMask _mask = ~0;
 		[SerializeField] private InteractionContext _context;
-		
+
 		private readonly List<IInteraction> _visible = new List<IInteraction>();
+		private readonly List<IInteraction> _buffer = new List<IInteraction>();
 		private readonly Collider[] _hits = new Collider[16];
 		private IInteraction _selected;
 
@@ -26,29 +27,39 @@ namespace Ringhold.Interactions {
 
 			var size = Physics.OverlapSphereNonAlloc(transform.position, _radius, _hits, _mask);
 			for (var i = 0; i < size; i++) {
-				if (_hits[i].TryGetComponent<IInteraction>(out var interaction)) {
-					_visible.Add(interaction);
-				}
+				_hits[i].GetComponents(_buffer);
+				_visible.AddRange(_buffer);
 			}
 
 			foreach (var interaction in _visible) {
 				interaction.SetInteractionState(InteractionHighlightState.Visible);
 			}
 		}
+
 		private void UpdateSelected() {
 			IInteraction nearest = null;
 			var minDist = float.MaxValue;
-
-			foreach (var i in _visible) {
-				if (!i.CanInteract(_context) || i is not MonoBehaviour mono) {
+			var maxPriority = InteractionPriority.Lowest;
+			var interactionRadiusSqr = _interactionRadius * _interactionRadius;
+			
+			foreach (var interaction in _visible) {
+				if (!interaction.CanInteract(_context) || interaction is not MonoBehaviour mono) {
 					continue;
 				}
-				var dist = Vector3.Distance(transform.position, mono.transform.position);
-				if (dist > _interactionRadius || dist >= minDist) {
+				var dist = (transform.position - mono.transform.position).sqrMagnitude;
+				if (dist > interactionRadiusSqr) {
+					continue;
+				}
+				var priority = interaction.Priority;
+				if (priority < maxPriority) {
+					continue;
+				}
+				if (priority == maxPriority && dist >= minDist) {
 					continue;
 				}
 				minDist = dist;
-				nearest = i;
+				maxPriority = priority;
+				nearest = interaction;
 			}
 
 			if (_selected != nearest) {

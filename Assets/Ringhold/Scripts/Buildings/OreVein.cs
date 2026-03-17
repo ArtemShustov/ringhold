@@ -24,17 +24,15 @@ namespace Ringhold.Buildings {
 		}
 		
 		public void Interact(InteractionContext context) {
-			var canTake = _drill != null && context.Hand.Current == null && _drill is IPickupable;
-			var canPlace = _drill == null && context.Hand.Current is IOreDrill;
-
-			if (canTake) {
-				context.Hand.Pick(_drill as IPickupable);
+			if (CanTakeDrill(context, out var pickupableDrill)) {
+				context.Hand.Pick(pickupableDrill);
 				_drill.SetVein(null);
 				_drill = null;
 				return;
 			} 
-			if (canPlace) {
-				_drill = context.Hand.Current as IOreDrill;
+			
+			if (CanPlaceDrill(context, out var drill)) {
+				_drill = drill;
 				_drill?.SetVein(this);
 				context.Hand.Clear();
 
@@ -48,10 +46,20 @@ namespace Ringhold.Buildings {
 			}
 		}
 		public bool CanInteract(InteractionContext context) {
-			var canTake = _drill != null && context.Hand.Current == null && _drill is IPickupable;
-			var canPlace = _drill == null && context.Hand.Current is IOreDrill;
-			return canTake || canPlace;
+			return CanTakeDrill(context, out _) || CanPlaceDrill(context, out _);
 		}
 		public void SetInteractionState(InteractionHighlightState state) { }
+
+		private bool CanTakeDrill(InteractionContext context, out IPickupable pickupableDrill) {
+			if (_drill is not MonoBehaviour monoDrill || context.Hand.Current != null) {
+				pickupableDrill = null;
+				return false;
+			}
+			return monoDrill.TryGetComponent<IPickupable>(out pickupableDrill);
+		}
+		private bool CanPlaceDrill(InteractionContext context, out IOreDrill drill) {
+			drill = null;
+			return _drill == null && context.Hand.CurrentIs<IOreDrill>(out drill);
+		}
 	}
 }
