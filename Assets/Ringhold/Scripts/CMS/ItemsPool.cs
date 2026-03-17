@@ -12,7 +12,7 @@ namespace Ringhold.CMS {
 			return _instance;
 		}
 		
-		public DroppedItem GetDroppedItem(Item item, int count = 1) {
+		public DroppedItem GetDroppedItem(ItemDefinition item, int count = 1) {
 			var instance = Injecting.Instantiate(item.Prefab, SceneContext.Current.Container);
 			instance.Set(item, count);
 			return instance;

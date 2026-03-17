@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3599333609750975955}
+  - component: {fileID: 5785907234481693049}
   - component: {fileID: 7588120914215028727}
   - component: {fileID: 3571036297170144159}
   - component: {fileID: 7180736962561009504}
@@ -37,6 +38,19 @@ Transform:
   - {fileID: 6628488009642921783}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5785907234481693049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2712612364099615994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 280459583229470eaec11aeb5c3bb458, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Buildings.Building
+  <Definition>k__BackingField: {fileID: 0}
 --- !u!114 &7588120914215028727
 MonoBehaviour:
   m_ObjectHideFlags: 0

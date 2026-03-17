@@ -1,4 +1,3 @@
-using System;
 using Core.DependencyInjection;
 using Ringhold.CMS;
 using Ringhold.Interactions;

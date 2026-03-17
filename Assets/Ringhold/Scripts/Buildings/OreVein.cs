@@ -7,7 +7,7 @@ namespace Ringhold.Buildings {
 	[SelectionBase]
 	public class OreVein: MonoBehaviour, IInteraction {
 		[field: Header("Resource")]
-		[field: SerializeField] public Item Resource { get; private set; }
+		[field: SerializeField] public ItemDefinition Resource { get; private set; }
 		[field: SerializeField] public int MineLevel { get; private set; }
 		
 		[Header("Storage")]

@@ -130,8 +130,9 @@ MonoBehaviour:
   <StateChanged>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  <Item>k__BackingField: {fileID: 0}
-  <Count>k__BackingField: 0
+  <Stack>k__BackingField:
+    <Item>k__BackingField: {fileID: 0}
+    <Count>k__BackingField: 0
   _rigidbody: {fileID: 3524764111922145401}
 --- !u!114 &3604882020782147281
 MonoBehaviour:

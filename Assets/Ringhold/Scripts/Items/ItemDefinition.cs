@@ -1,11 +1,13 @@
+using Ringhold.CMS;
 using UnityEngine;
 using UnityEngine.Localization;
 
 namespace Ringhold.Items {
 	[CreateAssetMenu(menuName = "Ringhold/CMS/Item")]
-	public class Item: ScriptableObject {
-		[field: SerializeField] public string Id { get; private set; }
+	public class ItemDefinition: ScriptableObject, ICMSEntry {
+		[field: SerializeField, HideInInspector] public string Id { get; private set; }
 		[field: SerializeField] public LocalizedString Name { get; private set; }
+		[field: Space]
 		[field: SerializeField] public DroppedItem Prefab { get; private set; }
 	}
 }

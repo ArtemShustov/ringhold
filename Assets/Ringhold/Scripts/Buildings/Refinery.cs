@@ -72,7 +72,7 @@ namespace Ringhold.Buildings {
 			}
 		}
 
-		private bool TryGetRecipe(Item input, out RefineryRecipe recipe) {
+		private bool TryGetRecipe(ItemDefinition input, out RefineryRecipe recipe) {
 			recipe = _recipes.FirstOrDefault(r => r.Input == input);
 			return recipe.Input == input;
 		}
@@ -86,8 +86,8 @@ namespace Ringhold.Buildings {
 
 		[Serializable]
 		public struct RefineryRecipe {
-			public Item Input;
-			public Item Output;
+			public ItemDefinition Input;
+			public ItemDefinition Output;
 
 			public bool IsValid => Input != null && Output != null;
 		}
@@ -96,7 +96,7 @@ namespace Ringhold.Buildings {
 		public class RefineryInputItemFilter : IItemFilter {
 			[SerializeField] private Refinery _refinery;
 
-			public bool Accept(Item item) => _refinery?.TryGetRecipe(item, out _) ?? false;
+			public bool Accept(ItemDefinition item) => _refinery?.TryGetRecipe(item, out _) ?? false;
 		}
 	}
 }

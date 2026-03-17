@@ -52,7 +52,7 @@ namespace Ringhold.Items {
 		public bool CanPut(InteractionContext context) {
 			return _canPut && _current == null
 			       && context.Hand.Current is DroppedItem item
-			       && (_filter?.Accept(item.Item) ?? true);
+			       && (_filter?.Accept(item.Stack.Item) ?? true);
 		}
 		public bool CanTake(InteractionContext context) {
 			return _canTake && _current != null 
@@ -61,6 +61,6 @@ namespace Ringhold.Items {
 	}
 
 	public interface IItemFilter {
-		bool Accept(Item item);
+		bool Accept(ItemDefinition item);
 	}
 }
