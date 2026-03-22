@@ -40,10 +40,13 @@ namespace Ringhold.Items {
 		}
 
 		private void OnTriggerEnter(Collider other) {
+			Debug.Log($"[{name}] OnTriggerEnter with {other.name}"); 
 			if (!other.TryGetComponent<DroppedItem>(out var otherItem)) {
+				Debug.Log($"Not a dropped item");
 				return;
 			}
-			if (otherItem.Stack != Stack) {
+			if (otherItem.Stack.Item != Stack.Item) {
+				Debug.Log($"Stacks is not equal");
 				return;
 			}
 
