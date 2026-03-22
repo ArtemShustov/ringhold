@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Item_GreenOre
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Items.DroppedItemDefinition
   <Id>k__BackingField: Item_GreenOre
-  <Prefab>k__BackingField: {fileID: 4562871978794209398, guid: cf561f190fe8d384ca24a6cdb90bb7f8, type: 3}
+  <Prefab>k__BackingField: {fileID: 1838526523410508666, guid: 0d1e10c4a9ce1f3408b90d06db2a0ee5, type: 3}

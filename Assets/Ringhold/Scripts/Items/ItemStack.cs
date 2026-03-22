@@ -1,11 +1,25 @@
 using System;
+using Core.Utils;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Ringhold.Items {
 	[Serializable]
 	public class ItemStack: IEquatable<ItemStack>, IEquatable<FastItemStack> {
 		[field: SerializeField] public ItemDefinition Item { get; set; }
-		[field: SerializeField] public int Count { get; set; }
+		[FormerlySerializedAs("<Count>k__BackingField")]
+		[SerializeField] private int _count;
+
+		public int Count {
+			get => _count;
+			set {
+				var old = _count;
+				_count = value;
+				CountChanged?.Invoke(old, value);
+			}
+		}
+
+		public event ValueChanged<int> CountChanged; 
 
 		public ItemStack() { }
 		public ItemStack(ItemDefinition item, int count = 1) {

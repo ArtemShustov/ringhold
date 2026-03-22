@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Ringhold.Items.Editor {
 	[CustomPropertyDrawer(typeof(ItemStack))]
 	[CustomPropertyDrawer(typeof(FastItemStack))]
-	public class FastItemStackDrawer: PropertyDrawer {
+	public class ItemStackDrawer: PropertyDrawer {
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-			var count = property.FindPropertyRelative("Count") ?? property.FindPropertyRelative("<Count>k__BackingField");
+			var count = property.FindPropertyRelative("Count") ?? property.FindPropertyRelative("_count");
 			var item = property.FindPropertyRelative("Item") ?? property.FindPropertyRelative("<Item>k__BackingField");
 			
 			label = EditorGUI.BeginProperty(position, label, property);

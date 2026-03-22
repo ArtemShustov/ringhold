@@ -5,15 +5,15 @@ using UnityEngine;
 namespace Ringhold.Items {
 	[SelectionBase]
 	public class DroppedItem: Pickupable {
-		[field: SerializeField] public ItemStack Stack { get; private set; }
-		[Space]
 		[SerializeField] private Rigidbody _rigidbody;
+		public ItemStack Stack { get; private set; } = new ItemStack();
 		
 		public ItemDefinition Item => Stack?.Item;
 		public int Count => Stack?.Count ?? 0;
 		
 		public void Set(ItemDefinition item, int count) {
-			Stack = new ItemStack(item, count);
+			Stack.Item = item;
+			Stack.Count = count;
 		}
 		public void Add(int count) {
 			Stack.Count += count;
@@ -40,13 +40,10 @@ namespace Ringhold.Items {
 		}
 
 		private void OnTriggerEnter(Collider other) {
-			Debug.Log($"[{name}] OnTriggerEnter with {other.name}"); 
 			if (!other.TryGetComponent<DroppedItem>(out var otherItem)) {
-				Debug.Log($"Not a dropped item");
 				return;
 			}
 			if (otherItem.Stack.Item != Stack.Item) {
-				Debug.Log($"Stacks is not equal");
 				return;
 			}
 
