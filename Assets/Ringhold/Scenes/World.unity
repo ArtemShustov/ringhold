@@ -872,6 +872,7 @@ GameObject:
   m_Component:
   - component: {fileID: 644603301}
   - component: {fileID: 644603302}
+  - component: {fileID: 644603303}
   m_Layer: 6
   m_Name: Interactor
   m_TagString: Untagged
@@ -906,14 +907,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd4c677f2a845c8ba07dd66c42d0389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Interactions.PlayerInteractor
-  _radius: 5
   _interactionRadius: 1.5
-  _mask:
-    serializedVersion: 2
-    m_Bits: 193
   _context:
     Character: {fileID: 1375596342}
     Hand: {fileID: 714479677}
+  _collider: {fileID: 644603303}
+--- !u!135 &644603303
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644603300}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 192
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &692813311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,6 +1302,7 @@ GameObject:
   - component: {fileID: 1375596347}
   - component: {fileID: 1375596344}
   - component: {fileID: 1375596345}
+  - component: {fileID: 1375596348}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -1433,6 +1453,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ringhold.Characters.CharacterInputContainer
   _default: {fileID: 0}
+--- !u!54 &1375596348
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375596337}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1 &1471574267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1700,30 +1747,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 418821797443027477, guid: e03b3ec8a215ccf4bb5fc08beee6f2ac, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 418821797443027477, guid: e03b3ec8a215ccf4bb5fc08beee6f2ac, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 418821797443027477, guid: e03b3ec8a215ccf4bb5fc08beee6f2ac, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 418821797443027477, guid: e03b3ec8a215ccf4bb5fc08beee6f2ac, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 418821797443027477, guid: e03b3ec8a215ccf4bb5fc08beee6f2ac, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 418821797443027477, guid: e03b3ec8a215ccf4bb5fc08beee6f2ac, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5415181237109697010, guid: e03b3ec8a215ccf4bb5fc08beee6f2ac, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2

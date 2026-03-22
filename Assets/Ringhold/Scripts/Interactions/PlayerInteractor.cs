@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+using System.Linq;
 using Core.Utils;
+using Ringhold.Utils;
 using UnityEngine;
 
 namespace Ringhold.Interactions {
@@ -9,63 +10,40 @@ namespace Ringhold.Interactions {
 		[SerializeField] private LayerMask _mask = ~0;
 		[SerializeField] private InteractionContext _context;
 
-		private readonly List<IInteraction> _visible = new List<IInteraction>();
-		private readonly List<IInteraction> _buffer = new List<IInteraction>();
-		private readonly Collider[] _hits = new Collider[16];
+		private InteractionOverlap _overlap;
 		private IInteraction _selected;
 
-		private void Update() {
-			UpdateVisible();
-			UpdateSelected();
+		private void Awake() {
+			_overlap = new InteractionOverlap(_radius, _mask);
 		}
 
-		private void UpdateVisible() {
-			foreach (var interaction in _visible) {
-				interaction.SetInteractionState(InteractionHighlightState.None);
-			}
-			_visible.Clear();
+		private void FixedUpdate() {
+			_overlap.Update(transform.position);
+			var best = _overlap.GetBestInRange(transform.position, _interactionRadius, _context);
+			var added = _overlap.AddBuffer;
+			var removed = _overlap.RemoveBuffer;
 
-			var size = Physics.OverlapSphereNonAlloc(transform.position, _radius, _hits, _mask);
-			for (var i = 0; i < size; i++) {
-				_hits[i].GetComponents(_buffer);
-				_visible.AddRange(_buffer);
-			}
-
-			foreach (var interaction in _visible) {
-				interaction.SetInteractionState(InteractionHighlightState.Visible);
-			}
-		}
-
-		private void UpdateSelected() {
-			IInteraction nearest = null;
-			var minDist = float.MaxValue;
-			var maxPriority = InteractionPriority.Lowest;
-			var interactionRadiusSqr = _interactionRadius * _interactionRadius;
-			
-			foreach (var interaction in _visible) {
-				if (!interaction.CanInteract(_context) || interaction is not MonoBehaviour mono) {
-					continue;
+			foreach (var interaction in removed) {
+				if (interaction != best) {
+					interaction.SetInteractionState(InteractionHighlightState.None);
 				}
-				var dist = (transform.position - mono.transform.position).sqrMagnitude;
-				if (dist > interactionRadiusSqr) {
-					continue;
-				}
-				var priority = interaction.Priority;
-				if (priority < maxPriority) {
-					continue;
-				}
-				if (priority == maxPriority && dist >= minDist) {
-					continue;
-				}
-				minDist = dist;
-				maxPriority = priority;
-				nearest = interaction;
 			}
 
-			if (_selected != nearest) {
-				_selected?.SetInteractionState(InteractionHighlightState.Visible);
-				_selected = nearest;
-				_selected?.SetInteractionState(InteractionHighlightState.Selected);
+			if (best != _selected) {
+				if (_selected != null && !removed.Contains(_selected)) {
+					_selected.SetInteractionState(InteractionHighlightState.Visible);
+				}
+				_selected = best;
+			}
+
+			foreach (var interaction in added) {
+				if (interaction != _selected) {
+					interaction.SetInteractionState(InteractionHighlightState.Visible);
+				}
+			}
+
+			if (_selected != null) {
+				_selected.SetInteractionState(InteractionHighlightState.Selected);
 			}
 		}
 
@@ -79,6 +57,7 @@ namespace Ringhold.Interactions {
 				return;
 			}
 		}
+		
 		private void OnEnable() {
 			_context.Character.Input.Interact += OnInteract;
 		}
@@ -88,8 +67,8 @@ namespace Ringhold.Interactions {
 
 		#if DEBUG
 		private void OnGUI() {
-			foreach (var interaction in _visible) {
-				if (interaction is MonoBehaviour mono) {
+			foreach (var interaction in _overlap.Current.Keys) {
+				if (interaction is MonoBehaviour mono && mono) {
 					var canInteract = interaction.CanInteract(_context);
 					var isSelected = interaction == _selected;
 					var state = canInteract switch {
@@ -104,5 +83,35 @@ namespace Ringhold.Interactions {
 			}
 		}
 		#endif
+
+		private class InteractionOverlap: ComponentOverlapSphere<IInteraction> {
+			public InteractionOverlap(float radius, LayerMask mask): base(radius, mask) { }
+
+			public IInteraction GetBestInRange(Vector3 position, float maxRadius, InteractionContext context) {
+				IInteraction best = null;
+				var bestPriority = (InteractionPriority)(-1);
+				var bestSqrDistance = float.MaxValue;
+				var sqrMaxRadius = maxRadius * maxRadius;
+
+				foreach (var (interaction, info) in Current) {
+					var sqrDistance = (info.Transform.position - position).sqrMagnitude;
+					if (sqrDistance > sqrMaxRadius) {
+						continue;
+					}
+					if (!interaction.CanInteract(context)) {
+						continue;
+					}
+
+					var priority = interaction.Priority;
+					if (sqrDistance < bestSqrDistance || (Mathf.Approximately(sqrDistance, bestSqrDistance) && priority > bestPriority)) {
+						best = interaction;
+						bestPriority = priority;
+						bestSqrDistance = sqrDistance;
+					}
+				}
+
+				return best;
+			}
+		}
 	}
 }

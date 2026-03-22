@@ -18,7 +18,7 @@ namespace Ringhold.Construction.UI {
 		private int _required;
 
 		public void SetItem(ItemDefinition item, int required) {
-			// TODO: _icon = stack.Icon;
+			_icon.sprite = item.Icon;
 			_required = required;
 			
 			Refresh();

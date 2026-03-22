@@ -17,6 +17,7 @@ namespace Ringhold.Construction {
 		public event Action<float> ProgressChanged;
 		public event Action<ItemStack> StackChanged; 
 		public event Action<ConstructionSchemeDefinition> SchemeChanged; 
+		public event Action<InteractionHighlightState> InteractionStateChanged;
 		
 		public void Interact(InteractionContext context) {
 			var droppedItem = context.Hand.Current as DroppedItem;
@@ -49,7 +50,9 @@ namespace Ringhold.Construction {
 			return context.Hand.Current is DroppedItem dItem
 			       && CanAccept(dItem.Item);
 		}
-		public void SetInteractionState(InteractionHighlightState state) { }
+		public void SetInteractionState(InteractionHighlightState state) {
+			InteractionStateChanged?.Invoke(state);
+		}
 
 		private void Start() {
 			SetScheme(Scheme);
